@@ -8,7 +8,7 @@ ansible:
   sudo: False
 docker:
   containers:
-    - name: ansible-acbuild-install-role
+    - name: acbuild-install-role
       image: ubuntu
       image_version: latest
       ansible_groups:
