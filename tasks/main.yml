@@ -12,8 +12,8 @@
 - name: Find out latest download url of acbuild from github
   github_release:
     token: "{{ github_login_token }}"
-    user: "coreos"
-    repo: "rkt"
+    user: "containers"
+    repo: "build"
     action: get_asset_url
     asset_regex: ".tar.gz$"
     release_version: "{{ acbuild_version }}"
