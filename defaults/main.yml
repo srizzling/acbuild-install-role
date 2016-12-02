@@ -1,0 +1,4 @@
+---
+# defaults file for ansible-acbuild-install-role
+acbuild_version: latest
+github_login_token: "{{ vault_github_login_token }}"

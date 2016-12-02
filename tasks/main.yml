@@ -1,0 +1,38 @@
+---
+# tasks file for ansible-acbuild-install-role
+
+# unforuntely required to ensure that whatever unarchive uses for getting archive from github
+# works with openssl on default docker images :( sorry.
+
+- name: Ensure curl is installed
+  package:
+    name: curl
+    state: installed
+
+- name: Find out latest download url of acbuild from github
+  github_release:
+    token: "{{ github_login_token }}"
+    user: "coreos"
+    repo: "rkt"
+    action: get_asset_url
+    asset_regex: ".tar.gz$"
+    release_version: "{{ acbuild_version }}"
+  register: acbuild_release
+  delegate_to: 127.0.0.1
+
+- name: Download and extract archive from github releases for rkt
+  unarchive:
+    src: '{{ acbuild_release.asset_url }}'
+    remote_src: yes
+    dest: /opt/
+    creates: /opt/acbuild-{{ acbuild_release.tag }}
+
+- name: Copy binarys to path
+  copy:
+    remote_src: true
+    src: /opt/{{ item.base }}-{{ item.version }}/{{ item.base }}
+    dest: /usr/bin/
+    mode: 0755
+  with_items:
+    - base: "acbuild"
+      version: "{{ acbuild_release.tag }}"
