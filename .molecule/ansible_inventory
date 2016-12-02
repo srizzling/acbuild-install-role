@@ -1,0 +1,4 @@
+ansible-acbuild-install-role ansible_connection=docker
+
+[group1]
+ansible-acbuild-install-role

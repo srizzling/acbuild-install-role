@@ -1,0 +1,17 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+ansible:
+  vault_password_file: vault_password_file
+  sudo: False
+docker:
+  containers:
+    - name: ansible-acbuild-install-role
+      image: ubuntu
+      image_version: latest
+      ansible_groups:
+        - group1
+verifier:
+  name: testinfra
