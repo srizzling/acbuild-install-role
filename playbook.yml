@@ -1,6 +1,6 @@
 ---
 - hosts: all
   roles:
-    - role: ansible-acbuild-install-role
+    - role: acbuild-install-role
   vars_files:
     - vars/vault.yml
