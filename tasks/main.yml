@@ -8,6 +8,7 @@
   package:
     name: curl
     state: installed
+  become: true
 
 - name: Find out latest download url of acbuild from github
   github_release:
@@ -26,6 +27,7 @@
     remote_src: yes
     dest: /opt/
     creates: /opt/acbuild-{{ acbuild_release.tag }}
+  become: true
 
 - name: Copy binarys to path
   copy:
@@ -36,3 +38,4 @@
   with_items:
     - base: "acbuild"
       version: "{{ acbuild_release.tag }}"
+  become: true
