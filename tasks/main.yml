@@ -10,7 +10,7 @@
     state: installed
   become: true
 
-- name: Find out latest download url of acbuild from github
+- name: Find out the download url of acbuild from github
   github_release:
     token: "{{ github_login_token }}"
     user: "containers"
@@ -19,6 +19,17 @@
     asset_regex: ".tar.gz$"
     release_version: "{{ acbuild_version }}"
   register: acbuild_release
+  delegate_to: 127.0.0.1
+
+- name: Find out the download url of actool from github
+  github_release:
+    token: "{{ github_login_token }}"
+    user: "appc"
+    repo: "spec"
+    action: get_asset_url
+    asset_regex: ".tar.gz$"
+    release_version: "{{ actool_version }}"
+  register: actool_release
   delegate_to: 127.0.0.1
 
 - name: Download and extract archive from github releases for rkt
