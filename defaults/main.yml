@@ -1,6 +1,6 @@
 ---
 # defaults file for ansible-acbuild-install-role
 acbuild_version: latest
-actool_version: latest
+actool_version: "v0.8.9"
 
 github_login_token: "{{ vault_github_login_token }}"

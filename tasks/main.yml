@@ -34,19 +34,26 @@
 
 - name: Download and extract archive from github releases for rkt
   unarchive:
-    src: '{{ acbuild_release.asset_url }}'
+    src: "{{ item.src }}"
     remote_src: yes
     dest: /opt/
-    creates: /opt/acbuild-{{ acbuild_release.tag }}
+    creates:  "{{ item.creates }}"
+  with_items:
+    - src: "{{ actool_release.asset_url }}"
+      creates: /opt/appc-{{ actool_release.tag }}
+    - src: '{{ acbuild_release.asset_url }}'
+      creates: /opt/acbuild-{{ acbuild_release.tag }}
   become: true
 
 - name: Copy binarys to path
   copy:
     remote_src: true
-    src: /opt/{{ item.base }}-{{ item.version }}/{{ item.base }}
+    src: "{{ item }}"
     dest: /usr/bin/
     mode: 0755
   with_items:
-    - base: "acbuild"
-      version: "{{ acbuild_release.tag }}"
+    - "/opt/appc-{{ actool_release.tag }}/actool"
+    - "/opt/acbuild-{{ acbuild_release.tag }}/acbuild"
+    - "/opt/acbuild-{{ acbuild_release.tag }}/acbuild-chroot"
+    - "/opt/acbuild-{{ acbuild_release.tag }}/acbuild-script"
   become: true
