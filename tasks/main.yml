@@ -54,6 +54,4 @@
   with_items:
     - "/opt/appc-{{ actool_release.tag }}/actool"
     - "/opt/acbuild-{{ acbuild_release.tag }}/acbuild"
-    - "/opt/acbuild-{{ acbuild_release.tag }}/acbuild-chroot"
-    - "/opt/acbuild-{{ acbuild_release.tag }}/acbuild-script"
   become: true
